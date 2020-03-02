@@ -5,7 +5,7 @@ onkeydown = onkeyup = function(e) {
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keyup';
     /* insert conditional here */
-    if (map[17] && map[13]) { // CTRL+SHIFT+A
+    if (map[17] && map[13]) { // CTRL+ENTER
         console.log('ctrlenter',isDone);
         if(isDone == 0){
             run();
@@ -17,7 +17,8 @@ onkeydown = onkeyup = function(e) {
 function run(){
     // Check every 1000 millisecond
     isDone = window.setInterval(checkIfTabPaneActive, 1000);
-    // console.log('isDone',isDone);
+	
+    console.log('isDone',isDone);
 }
 
 function checkIfTabPaneActive(){
@@ -29,6 +30,7 @@ function checkIfTabPaneActive(){
             // console.log('tab-pane active');
 			chrome.runtime.sendMessage('trigger');
             window.clearTimeout(isDone);
+			window.clearInterval(isDone);
             isDone = 0;
 		}
 	}
